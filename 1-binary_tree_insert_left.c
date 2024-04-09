@@ -15,24 +15,16 @@ binary_tree_t *binary_tree_insert_left(binary_tree_t *parent, int value)
 	if (parent == NULL)
 		return (NULL);
 
-	/**
-		*creating a new_node to point to the parent whose
-		*value is to be manipulated.We use the 0-binary_tree_node
-	*/
-	new_node = binary_tree_node(parent, value);
-	if (new_node == NULL)
-		return (NULL);
-
-	if (parent->left != NULL)
-	{
-		/*
-			* if the root parent has a left node, the new node will
-			* point to it and then takes its place as a new parent to
-			* the left node
-		*/
+		new_node = malloc(sizeof(binary_tree_t));
+		if (!new_node)
+				return (NULL);
+		new_node->n = value;
+		new_node->parent = parent;
+		new_node->right = NULL;
 		new_node->left = parent->left;
-		parent->left->parent = new_node
-	}
-	parent->left = new_node;
-	return (new_node);
+		parent->left = new_node;
+		if (new_node->left)
+				new_node->left->parent = new_node;
+		return (new_node);
+
 }
